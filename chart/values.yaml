@@ -1,0 +1,35 @@
+# Defaults de staging. Los values "de verdad" por entorno viven en el repo gitops
+# (apps/web-app/values-staging.yaml y values-prod.yaml); build.yml bumpea image.tag ahí en
+# cada push a main (staging) y cada tag v* (prod). Este archivo es la base que usa Argo CD.
+
+image:
+  repository: ghcr.io/demo-org-np-migration/web-app
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 8080
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+probes:
+  path: /health
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+# No hay ConfigMap: esta app no lee env vars en runtime. VITE_KEYCLOAK_URL y
+# VITE_KEYCLOAK_REALM quedan horneados en el bundle en build time (ver Dockerfile y README).
+
+podLabels: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: web-app
+description: Portal de comercios de Cauri, servido como SPA por nginx (equipo channels).
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
