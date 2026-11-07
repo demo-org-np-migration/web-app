@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # --- build ---
-FROM node:20-alpine AS build
+FROM --platform=$BUILDPLATFORM node:20-alpine AS build
 WORKDIR /app
 
 # El realm y la URL de Keycloak quedan horneados en el bundle de JS: no son env vars que se
